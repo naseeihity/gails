@@ -23,6 +23,27 @@ type Database struct {
 //DatabaseCfg 数据库配置
 var DatabaseCfg = &Database{}
 
+//Redis type:Redis配置
+type Redis struct {
+	Type     string
+	Host     string
+	Password string
+	Secret   string
+	MaxIdle  int
+}
+
+//RedisCfg redis配置
+var RedisCfg = &Redis{}
+
+//Server 后端配置
+type Server struct {
+	Port         string
+	AllowOrigins []string
+}
+
+//ServerCfg Server配置
+var ServerCfg = &Server{}
+
 var cfg *ini.File
 
 //Init init configs
@@ -45,6 +66,8 @@ func Init() {
 	}
 
 	mapToStruct("database", DatabaseCfg)
+	mapToStruct("redis", RedisCfg)
+	mapToStruct("server", ServerCfg)
 }
 
 func mapToStruct(section string, v interface{}) {
