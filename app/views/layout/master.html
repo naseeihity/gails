@@ -25,12 +25,12 @@
         <div class="navbar-container">
           <ul class="nav navbar-nav navbar-menu">
             <li>
-              <a class="nav-item {{if eq .Active "home" }} active {{end}}" href="/">Home</a>
+              <a class="nav-item {{if eq .Active "Home" }} active {{end}}" href="/">Home</a>
             </li>
-            <li><a class="nav-item {{if eq .Active "news" }} active {{end}}" href="/news">News</a></li>
-            <li><a class="nav-item {{if eq .Active "about" }} active {{end}}" href="/about">About</a></li>
+            <li><a class="nav-item {{if eq .Active "News" }} active {{end}}" href="/news">News</a></li>
+            <li><a class="nav-item {{if eq .Active "About" }} active {{end}}" href="/about">About</a></li>
             {{ if not .IsSginIn }}
-            <li><a class="nav-item {{if eq .Active "signin" }} active {{end}}" href="/user/sign_in">SignIn</a></li>
+            <li><a class="nav-item {{if eq .Active "Signin" }} active {{end}}" href="/user/sign_in">SignIn</a></li>
             {{ end }}
           </ul>
           {{ if .IsSginIn }}
@@ -59,6 +59,12 @@
       </div>
     </div>
     <div class="container">
+      {{range .Msg.Info}}
+          <div class="alert alert-info">{{.}}<a class="close" data-dismiss="alert" href="#">x</a></div>
+      {{end}}
+      {{range .Msg.Warn}}
+      <div class="alert alert-info">{{.}}<a class="close" data-dismiss="alert" href="#">x</a></div>
+      {{end}}
       {{template "content" .}}
     </div>
     <footer class="footer">
@@ -69,6 +75,13 @@
       </p>
     </footer>
     <script src="/assets/js/jquery.min.js"></script>
-    <script async src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script>
+      window.setTimeout(function() {
+          $(".alert").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove(); 
+          });
+      }, 1000);
+    </script>
   </body>
 </html>

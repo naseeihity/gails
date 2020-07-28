@@ -14,7 +14,7 @@ func InitRouter() *gin.Engine {
 	r.Static("/assets", "./app/assets")
 	// global middlewares
 	r.Use(middlewares.RedisSession(),
-		middlewares.CORS(), middlewares.AddState())
+		middlewares.CORS(), middlewares.FlashMessage(), middlewares.AddState())
 
 	//TODO：
 	// 1. cache

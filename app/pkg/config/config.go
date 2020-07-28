@@ -1,7 +1,6 @@
 package config
 
 import (
-	"gails/app/helpers"
 	"log"
 	"os"
 
@@ -56,7 +55,7 @@ func Init() {
 
 	env := os.Getenv("GAILS_ENV")
 	var err error
-	if env == helpers.PROD {
+	if env == PROD {
 		cfg, err = ini.Load(prodPath)
 		check(err)
 	} else {

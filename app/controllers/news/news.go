@@ -1,6 +1,7 @@
 package news
 
 import (
+	"gails/app/helpers"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -8,11 +9,5 @@ import (
 
 //Index 展示抓取消息
 func Index(c *gin.Context) {
-	isSignIn := c.GetBool("state_isUserSignIn")
-
-	c.HTML(http.StatusOK, "news", gin.H{
-		"Title":    "News",
-		"Active":   "news",
-		"IsSginIn": isSignIn,
-	})
+	c.HTML(http.StatusOK, "news", helpers.CommonHTMLRes("News", c))
 }

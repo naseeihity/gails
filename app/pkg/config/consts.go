@@ -1,4 +1,4 @@
-package helpers
+package config
 
 //DEV development mode
 var DEV string = "development"
