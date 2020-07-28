@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/assets/css/application.css" />
     {{template "head" .}}
-    <title>Gails | {{.title}}</title>
+    <title>Gails | {{.Title}}</title>
   </head>
   <body>
     <div class="navbar">
@@ -24,10 +24,16 @@
         </div>
         <div class="navbar-container">
           <ul class="nav navbar-nav navbar-menu">
-            <li><a class="nav-item" href="/">Home</a></li>
-            <li><a class="nav-item" href="/news">News</a></li>
-            <li><a class="nav-item" href="/about">About</a></li>
+            <li>
+              <a class="nav-item {{if eq .Active "home" }} active {{end}}" href="/">Home</a>
+            </li>
+            <li><a class="nav-item {{if eq .Active "news" }} active {{end}}" href="/news">News</a></li>
+            <li><a class="nav-item {{if eq .Active "about" }} active {{end}}" href="/about">About</a></li>
+            {{ if not .IsSginIn }}
+            <li><a class="nav-item {{if eq .Active "signin" }} active {{end}}" href="/user/sign_in">SignIn</a></li>
+            {{ end }}
           </ul>
+          {{ if .IsSginIn }}
           <ul
             class="nav navbar-nav navbar-right"
             style="height: 55px; width: 80px;"
@@ -44,10 +50,11 @@
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="/articles/new">New</a>
-                <a class="dropdown-item" href="/users/logout">Logout</a>
+                <a class="dropdown-item" href="/user/logout">Logout</a>
               </div>
             </li>
           </ul>
+          {{ end }}
         </div>
       </div>
     </div>

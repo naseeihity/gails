@@ -20,10 +20,10 @@ func RedisSession() gin.HandlerFunc {
 		log.Fatalf("Init redis seesion middleware failed: %v", err)
 	}
 
-	store.Options(sessions.Options{
-		// for https
-		// HttpOnly: true,
-	})
+	// store.Options(sessions.Options{
+	// 	// for https
+	// 	// HttpOnly: true,
+	// })
 
 	return sessions.Sessions("gails-session", store)
 }

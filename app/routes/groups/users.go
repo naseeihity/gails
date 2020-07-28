@@ -8,13 +8,13 @@ import (
 
 //InitUsers :
 func InitUsers(r *gin.Engine) {
-	user := r.Group("/user")
+	u := r.Group("/user")
 
 	{
-		user.GET("/sign_in", users.SignInPage)
-		user.POST("/sign_in", users.SignIn)
-		user.GET("/log_out", users.LogOut)
-		user.GET("/", users.Index)
+		u.GET("/sign_in", users.SignInPage)
+		u.POST("/sign_in", users.SignIn)
+		u.GET("/log_out", users.LogOut)
+		u.GET("/", users.Index)
 	}
 
 }
