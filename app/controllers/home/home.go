@@ -1,6 +1,8 @@
 package home
 
 import (
+	"gails/app/models"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -8,12 +10,21 @@ import (
 
 //Index 首页
 func Index(c *gin.Context) {
+	var username string
 	isSignIn := c.GetBool("state_isUserSignIn")
+	if user, _ := c.Get("state_curUser"); user != nil {
+		if curUser, ok := user.(*models.Users); ok {
+			username = curUser.Name
+		}
+	}
+
+	log.Println(isSignIn, "Index Redirect User ==> ", username)
 
 	c.HTML(http.StatusOK, "index", gin.H{
 		"Title":    "Home",
 		"Active":   "home",
 		"IsSginIn": isSignIn,
+		"curUser":  username,
 	})
 }
 

@@ -24,15 +24,13 @@ func CheckLogin() gin.HandlerFunc {
 //AddState add user state
 func AddState() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var curUser *models.Users
 		session := sessions.Default(c)
 
 		// 从session中获取user_id用来判断用户信息
 		userID := session.Get("user_id")
 		if userID != nil {
-			var err error
 			// interface{}.(uint)会报错
-			curUser, err = models.GetUserByID(userID)
+			curUser, err := models.GetUserByID(userID)
 
 			// 通过context传递用户信息参数
 			if err == nil {
@@ -40,7 +38,10 @@ func AddState() gin.HandlerFunc {
 			} else {
 				c.Set("state_isUserSignIn", false)
 			}
-			c.Set("state_curUser", &curUser)
+			c.Set("state_curUser", curUser)
+		} else {
+			c.Set("state_isUserSignIn", false)
+			c.Set("state_curUser", nil)
 		}
 
 		c.Next()

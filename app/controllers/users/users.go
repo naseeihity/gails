@@ -12,17 +12,16 @@ import (
 
 //SignInPage 登陆页
 func SignInPage(c *gin.Context) {
-	// isSignIn := c.GetBool("state_isUserSignIn")
-	// log.Println("SignInPage ==> ", isSignIn)
-	// if isSignIn {
-	// 	c.Redirect(http.StatusFound, "/")
-	// 	return
-	// }
+	var isSignIn bool
+	if isSignIn = c.GetBool("state_isUserSignIn"); isSignIn {
+		c.Redirect(http.StatusFound, "/")
+		return
+	}
 
 	c.HTML(http.StatusOK, "signin", gin.H{
 		"Title":    "SignIn",
 		"Active":   "signin",
-		"IsSginIn": false,
+		"IsSginIn": isSignIn,
 	})
 }
 
@@ -45,7 +44,6 @@ func SignIn(c *gin.Context) {
 	}
 	if user != nil && user.Authenticate(password) {
 		session := sessions.Default(c)
-		session.Clear()
 		session.Set("user_id", user.ID)
 		session.Save()
 		c.Redirect(http.StatusFound, "/")
@@ -54,7 +52,14 @@ func SignIn(c *gin.Context) {
 
 //LogOut 登出请求
 func LogOut(c *gin.Context) {
-
+	if isSignIn := c.GetBool("state_isUserSignIn"); !isSignIn {
+		c.Redirect(http.StatusFound, "/")
+		return
+	}
+	session := sessions.Default(c)
+	session.Clear()
+	session.Save()
+	c.Redirect(http.StatusFound, "/")
 }
 
 //Index 展示用户信息
