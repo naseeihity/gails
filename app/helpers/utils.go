@@ -23,8 +23,8 @@ func InterArrToStrArr(interArr []interface{}) []string {
 	return strArr
 }
 
-//CommonHTMLRes TODO:How to exted map[string]interface{}
-func CommonHTMLRes(active string, c *gin.Context) gin.H {
+//CommonHTMLRes common with params
+func CommonHTMLRes(active string, c *gin.Context, params ...gin.H) gin.H {
 	var username string
 	isSignIn := c.GetBool("state_isUserSignIn")
 	if user, _ := c.Get("state_curUser"); user != nil {
@@ -33,11 +33,28 @@ func CommonHTMLRes(active string, c *gin.Context) gin.H {
 		}
 	}
 
-	return gin.H{
+	common := gin.H{
 		"Title":    active,
 		"Active":   active,
 		"IsSginIn": isSignIn,
 		"curUser":  username,
 		"Msg":      c.MustGet("flashMessage"),
 	}
+
+	params = append(params, common)
+
+	res := MergeMaps(params...)
+
+	return res
+}
+
+//MergeMaps 合并gin.H
+func MergeMaps(maps ...gin.H) gin.H {
+	result := make(gin.H)
+	for _, m := range maps {
+		for k, v := range m {
+			result[k] = v
+		}
+	}
+	return result
 }

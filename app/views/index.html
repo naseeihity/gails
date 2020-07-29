@@ -1,6 +1,24 @@
 {{define "head"}}
-<style></style>
+ <link rel="stylesheet" href="/assets/css/article.css" />
 {{end}} {{define "content"}}
-<h1 class="hello">Hello Golang!</h1>
-<hr />
+<div id="articles">
+  <div class="articles">
+    {{range .articles}}
+    <article class="article">
+      <h2 class="article-title">
+        <a href="/articles/{{.ID}}" class="article-link">{{.Title}}</a>
+      </h2>
+      <div class="article-info">
+        Posted at: &nbsp;<time title="{{ .CreatedAt.Format "2006-01-_2 15:04" }}">{{.CreatedAt.Format "2006-01-_2 15:04"}}</time>,
+        &nbsp;{{.Name}}
+      </div>
+      <div class="article-description">
+        <p>{{.Abstract}}</p>
+      </div>
+      <a href="/articles/{{.ID}}" class="read-more">...more</a>
+    </article>
+    {{end}}
+  </div>
+</div>
+<p>Toal count: {{.count}}</p>
 {{end}}

@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//InitUsers :
+//InitNews :
 func InitNews(r *gin.Engine) {
 	n := r.Group("/news")
 

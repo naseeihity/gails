@@ -17,9 +17,9 @@ DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles` (
   `id` INT(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) DEFAULT '',
-  `desc` VARCHAR(255) DEFAULT '',
+  `abstract` VARCHAR(255) DEFAULT '',
   `content` TEXT,
-  `modified_by` VARCHAR(50) DEFAULT '',
+  `user_id` INT(10) unsigned,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` TIMESTAMP DEFAULT NULL,
