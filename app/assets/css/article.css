@@ -36,12 +36,12 @@
 }
 
 .article .read-more {
-  color: #42b983;
+  color: #7fd5ea;
   border: none;
   cursor: pointer;
 }
 
-#article .article .article-description p {
+#article.article .article-description p {
   padding: 9.5px;
   background: #f5f5f5;
   border: 1px solid #ccc;

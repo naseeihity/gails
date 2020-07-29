@@ -1,0 +1,17 @@
+{{define "head"}}
+<link rel="stylesheet" href="/assets/css/article.css" />
+{{end}} {{define "content"}}
+<article class="article" id="article">
+  <h1 class="article-title">{{.article.Title}}</h1>
+  <div class="article-info">
+    <span>Post at: {{.article.CreatedAt.Format "2006-01-_2 15:04"}}</span
+    ><span>Author: &nbsp;{{.author}}</span>
+  </div>
+  <div class="article-description">
+    <p>{{.article.Abstract}}</p>
+  </div>
+  <div class="article-content">
+    {{.article.Content}}
+  </div>
+</article>
+{{end}}

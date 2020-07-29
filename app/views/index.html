@@ -6,7 +6,7 @@
     {{range .articles}}
     <article class="article">
       <h2 class="article-title">
-        <a href="/articles/{{.ID}}" class="article-link">{{.Title}}</a>
+        <a href="/articles/detail/{{.ID}}" class="article-link">{{.Title}}</a>
       </h2>
       <div class="article-info">
         Posted at: &nbsp;<time title="{{ .CreatedAt.Format "2006-01-_2 15:04" }}">{{.CreatedAt.Format "2006-01-_2 15:04"}}</time>,
@@ -15,10 +15,10 @@
       <div class="article-description">
         <p>{{.Abstract}}</p>
       </div>
-      <a href="/articles/{{.ID}}" class="read-more">...more</a>
+      <a href="/articles/detail/{{.ID}}" class="read-more">...more</a>
     </article>
     {{end}}
   </div>
 </div>
-<p>Toal count: {{.count}}</p>
+<h5 class="text-right">Toal count: {{.count}}</h5>
 {{end}}

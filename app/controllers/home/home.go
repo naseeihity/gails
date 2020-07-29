@@ -30,7 +30,6 @@ func Index(c *gin.Context) {
 		"articles": articles,
 		"count":    count,
 	}
-	log.Println(articles)
 
 	c.HTML(http.StatusOK, "index", helpers.CommonHTMLRes("Home", c, data))
 }

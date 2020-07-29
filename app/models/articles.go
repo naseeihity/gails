@@ -33,3 +33,11 @@ func GetArticlesCount() (int, error) {
 
 	return count, res.Error
 }
+
+//GetArticleByID 根据id查询文章
+func GetArticleByID(ID int) (*Articles, error) {
+	var article Articles
+	res := db.First(&article, ID)
+
+	return &article, res.Error
+}

@@ -23,6 +23,7 @@ func InitRouter() *gin.Engine {
 	// 路由分组
 	groups.InitHome(r)
 	groups.InitUsers(r)
+	groups.InitArticles(r)
 	groups.InitNews(r)
 	groups.InitPasswords(r)
 
