@@ -1,6 +1,30 @@
 {{define "head"}}
 <link rel="stylesheet" href="/assets/css/news.css" />
 {{end}} {{define "content"}}
-<h1>Hello News!</h1>
-<hr />
+<div class="news">
+  <ul>
+    {{range .newsList}}
+    <li>
+      <div class="title">
+        <a href="{{.URL}}" target="_blank" rel="nofollow"
+          >{{.Title}}</a
+        >
+      </div>
+      <div class="info">
+        <span>by&nbsp;{{.By}}</span
+        ><span
+          ><span
+          >|&nbsp;&nbsp;<a
+            href="https://news.ycombinator.com/item?id={{.ID}}"
+            target="_blank"
+            rel="nofollow"
+            >{{.Descendants}} comments</a
+          ></span
+        >
+      </div>
+      <div class="score">{{.Score}}<i class="fa fa-star"></i></div>
+    </li>
+    {{end}}
+  </ul>
+</div>
 {{end}}

@@ -25,6 +25,7 @@ func Index(c *gin.Context) {
 	}
 
 	newsID, err := hackerNews.GetTopStories(page)
+	log.Println("Real get =>>", newsID)
 	if err != nil {
 		log.Println(err)
 		c.HTML(http.StatusOK, "news", helpers.CommonHTMLRes("News", c))
@@ -35,7 +36,7 @@ func Index(c *gin.Context) {
 	var newsList []service.NewsItem
 	var wg sync.WaitGroup
 	ch := make(chan service.NewsItem)
-	for id := range newsID {
+	for _, id := range newsID {
 		wg.Add(1)
 		go hackerNews.GetItemGo(id, ch, &wg)
 	}

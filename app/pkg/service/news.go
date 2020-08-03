@@ -91,7 +91,6 @@ func (h *HackerNewsService) GetTopStories(p int) ([]int, error) {
 		startAt = (page-1)*PAGESIZE - 1
 	}
 	endAt = page * PAGESIZE
-
 	return stories[startAt:endAt], nil
 }
 
