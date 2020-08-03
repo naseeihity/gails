@@ -70,7 +70,7 @@ gails
   - [x] FlashMesssage Alert 
   - [ ] Markdwon Support
   - [ ] Validations
-  - [ ] Cache Support
+  - [x] Cache Support
   - [ ] Deploy with Docker
   - [ ] A new solution for separating front and back ends:React + NextJS(Server-side rendering) + Nginx + Gails(Only work as an API Server)
 
