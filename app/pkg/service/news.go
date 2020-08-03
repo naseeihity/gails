@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"gails/app/helpers"
+	"gails/app/pkg/redis"
 	"log"
 	"sync"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +22,7 @@ type HackerNewsService struct {
 //NewsOptions :
 type NewsOptions struct {
 	CacheKey    string
-	CacheExpire int
+	CacheExpire time.Duration
 }
 
 //NewsItem :
@@ -43,8 +45,21 @@ type NewsItem struct {
 
 //Request :请求封装，设置和获取缓存
 func (h *HackerNewsService) Request(api string, options NewsOptions) ([]byte, error) {
+	cache := redis.Cache{
+		Client: redis.RedisClient,
+		Ctx:    redis.RedisContext,
+		Prefix: "gails",
+	}
+
+	// get from cache
 	if options.CacheKey != "" {
-		// get from cache
+		data, err := cache.GetCache(options.CacheKey)
+		if err != nil {
+			log.Println(err)
+		}
+		if len(data) > 0 {
+			return data, nil
+		}
 	}
 
 	url := fmt.Sprintf("%s/%s", h.URL, api)
@@ -55,7 +70,7 @@ func (h *HackerNewsService) Request(api string, options NewsOptions) ([]byte, er
 	}
 
 	if options.CacheKey != "" && len(resp) > 0 {
-		// set cache
+		cache.SetCache(options.CacheKey, resp, options.CacheExpire)
 	}
 
 	return resp, nil
@@ -71,7 +86,7 @@ func (h *HackerNewsService) GetTopStories(p int) ([]int, error) {
 	}
 	opt := NewsOptions{
 		CacheKey:    fmt.Sprintf("new_ids_%d", page),
-		CacheExpire: 300,
+		CacheExpire: 300 * time.Second,
 	}
 	res, err := h.Request("topstories.json", opt)
 
@@ -101,7 +116,7 @@ func (h *HackerNewsService) GetItem(id int) (NewsItem, error) {
 	api := fmt.Sprintf("item/%d.json", id)
 	opt := NewsOptions{
 		CacheKey:    fmt.Sprintf("new_item_%d", id),
-		CacheExpire: 300,
+		CacheExpire: 300 * time.Second,
 	}
 	res, err := h.Request(api, opt)
 	if err != nil {

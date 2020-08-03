@@ -5,6 +5,7 @@ import (
 	"gails/app/pkg/service"
 	"log"
 	"net/http"
+	"sort"
 	"strconv"
 	"sync"
 
@@ -25,7 +26,6 @@ func Index(c *gin.Context) {
 	}
 
 	newsID, err := hackerNews.GetTopStories(page)
-	log.Println("Real get =>>", newsID)
 	if err != nil {
 		log.Println(err)
 		c.HTML(http.StatusOK, "news", helpers.CommonHTMLRes("News", c))
@@ -47,6 +47,13 @@ func Index(c *gin.Context) {
 	for news := range ch {
 		newsList = append(newsList, news)
 	}
+
+	sort.Slice(newsList, func(a, b int) bool {
+		if newsList[a].Time < newsList[b].Time {
+			return true
+		}
+		return false
+	})
 
 	data := gin.H{
 		"newsList": newsList,
