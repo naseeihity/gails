@@ -3,6 +3,7 @@ module gails
 go 1.14
 
 require (
+	github.com/bitly/go-simplejson v0.5.0
 	github.com/foolin/goview v0.3.0
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-contrib/sessions v0.0.3

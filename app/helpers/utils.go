@@ -2,17 +2,12 @@ package helpers
 
 import (
 	"gails/app/models"
+	"io/ioutil"
+	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
-
-func isActive(action string, param string) string {
-	var cls string
-	if action == param {
-		cls = "active"
-	}
-	return cls
-}
 
 //InterArrToStrArr interface 数组转为字符串数组
 func InterArrToStrArr(interArr []interface{}) []string {
@@ -57,4 +52,40 @@ func MergeMaps(maps ...gin.H) gin.H {
 		}
 	}
 	return result
+}
+
+//GetRawRes 获取raw响应
+func GetRawRes(url string, params map[string]string) ([]byte, error) {
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// 设置Get请求的params
+	if params != nil {
+		q := req.URL.Query()
+		for k, v := range params {
+			q.Add(k, v)
+		}
+		req.URL.RawQuery = q.Encode()
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusOK {
+		// 响应体转为string
+		bodyBytes, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatal(err)
+			return nil, err
+		}
+		return bodyBytes, nil
+	}
+
+	return nil, err
 }
