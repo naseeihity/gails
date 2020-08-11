@@ -74,6 +74,11 @@ Online: http://118.25.22.201/
 6. 配置nginx
 
 ## 使用docker部署
+`Dockerfile` and `docker-compose`
+`wait-for`  控制在数据库启动后再启动web
+
+### 问题
+`x509: certificate signed by unknown authority`
 
 ## TODO
   - [x] User signin / logout
