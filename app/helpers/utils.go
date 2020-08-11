@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"crypto/tls"
 	"gails/app/models"
 	"io/ioutil"
 	"log"
@@ -56,7 +57,9 @@ func MergeMaps(maps ...gin.H) gin.H {
 
 //GetRawRes 获取raw响应
 func GetRawRes(url string, params map[string]string) ([]byte, error) {
-	client := &http.Client{}
+	client := &http.Client{Transport: &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
