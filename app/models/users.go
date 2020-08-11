@@ -1,16 +1,19 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
+	"time"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
 //Users Model Strcut
 type Users struct {
-	gorm.Model
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	ID        uint `gorm:"primary_key"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
 }
 
 //GetUserByID query from database

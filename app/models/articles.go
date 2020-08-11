@@ -1,14 +1,16 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import "time"
 
 //Articles 文章结构体
 type Articles struct {
-	gorm.Model
-	Title    string `json:"title"`
-	Abstract string `json:"abstract"`
-	Content  string `json:"content"`
-	UserID   int    `json:"userID"`
+	ID        uint `gorm:"primary_key"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	Title     string `json:"title"`
+	Abstract  string `json:"abstract"`
+	Content   string `json:"content"`
+	UserID    int    `json:"userID"`
 }
 
 //ArticleInfo article with username

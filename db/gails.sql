@@ -7,7 +7,6 @@ CREATE TABLE `users` (
   `password` VARCHAR(100) DEFAULT '',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `deleted_at` TIMESTAMP DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8;
 INSERT INTO `users` (`id`, `name`, `email`, `password`)
@@ -22,6 +21,5 @@ CREATE TABLE `articles` (
   `user_id` INT(10) unsigned,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `deleted_at` TIMESTAMP DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

@@ -11,7 +11,7 @@ import (
 func InitRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.Static("/assets", "./app/assets")
+	r.Static("/assets", "./app/views/assets")
 	// global middlewares
 	r.Use(middlewares.RedisSession(),
 		middlewares.CORS(), middlewares.FlashMessage(), middlewares.AddState())

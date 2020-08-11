@@ -20,8 +20,7 @@ The aim of this project is to show the basic architecture of the website applica
 
 ```
 gails                                  
-├─ app                                          
-│  ├─ assets              //Front-end static resources        
+├─ app                                                  
 │  ├─ controllers         //Router handlers     
 │  ├─ helpers             //Utils
 │  ├─ middlewares         //Middlewares for session,auth,flashMessage etc.    
@@ -33,6 +32,7 @@ gails
 │  │  ├─ groups           //Grouped routers       
 │  │  └─ router.go                     
 │  └─ views               //Templates  
+│      └─assets              //Front-end static resources
 ├─ config                 //Static Config files             
 │  ├─ app.ini             //Development             
 │  └─ app_prod.ini        //Production             
@@ -64,6 +64,16 @@ gails
    fresh
    ```
 
+## 传统部署过程
+1. 配置环境，安装mysql、redis、nginx，配置和启动
+2. 服务端编译 / 本地编译：`env GOOS=linux GOARCH=amd64 go build .`
+3. 静态文件部署到服务器 `cofig，app/assets, app/view`
+4. `sudo chomd 777 gail`
+5. 使用tmux运行 `tmux new s gails`, `./gails`
+6. 配置nginx
+
+## 使用docker部署
+
 ## TODO
   - [x] User signin / logout
   - [x] Article list and details
@@ -74,6 +84,10 @@ gails
   - [ ] Deploy with Docker
   - [ ] A new solution for separating front and back ends:React + NextJS(Server-side rendering) + Nginx + Gails(Only work as an API Server)
 
+## PROBLEMS
+1. 在mysql5.7下，TIMESTAMP 不能为NULL，（delete_at字段）用非null值建表才能成功。但是如果使用了 `gorm.Model`，delete_at字段就会影响使用gorm（First方法）进程查表。解决办法：1. 不使用gorm.Model。2. 配置mysql使其允许为null：`set @@explicit_defaults_for_timestamp=1;`
+
+2. hacker-news 的api在国内被墙
 ## References
 - [Kails](https://github.com/embbnux/kails)
 - [singo](https://github.com/Gourouting/singo)
