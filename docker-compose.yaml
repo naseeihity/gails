@@ -1,0 +1,28 @@
+# yaml 配置
+version: "3.7"
+services:
+  mysql:
+    image: "mysql:latest"
+    hostname: mysql
+    ports:
+      - "33061:3306"
+    command: "--default-authentication-plugin=mysql_native_password --init-file /data/application/init.sql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "gails"
+      MYSQL_DATABASE: "gails"
+      MYSQL_PASSWORD: "gails"
+    volumes:
+      - ./db/init.sql:/data/application/init.sql
+  redis:
+    image: "redis:latest"
+    hostname: redis
+    ports:
+      - "63790:6379"
+  app:
+    build: .
+    command: sh -c "./wait-for.sh mysql:3306 -s -- ./gails"
+    depends_on:
+      - redis
+      - mysql
+    ports:
+      - "8001:8001"

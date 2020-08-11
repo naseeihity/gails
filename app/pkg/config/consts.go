@@ -4,4 +4,4 @@ package config
 var DEV string = "development"
 
 //PROD product mode
-var PROD string = "product"
+var PROD string = "production"

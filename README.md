@@ -65,6 +65,7 @@ gails
    ```
 
 ## 传统部署过程
+Online: http://118.25.22.201/
 1. 配置环境，安装mysql、redis、nginx，配置和启动
 2. 服务端编译 / 本地编译：`env GOOS=linux GOARCH=amd64 go build .`
 3. 静态文件部署到服务器 `cofig，app/assets, app/view`

@@ -55,7 +55,8 @@ func Init() {
 
 	env := os.Getenv("GAILS_ENV")
 	var err error
-	if env == PROD {
+
+	if env != DEV {
 		cfg, err = ini.Load(prodPath)
 		check(err)
 	} else {
@@ -67,6 +68,8 @@ func Init() {
 	mapToStruct("database", DatabaseCfg)
 	mapToStruct("redis", RedisCfg)
 	mapToStruct("server", ServerCfg)
+
+	log.Println("+++++++What config_+++++", DatabaseCfg)
 }
 
 func mapToStruct(section string, v interface{}) {
