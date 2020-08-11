@@ -1,6 +1,6 @@
 # Gails
 
-Gails inspired by Kails is a web demo build with Gin, Gorm, MySQL, Redis. The structure of this project and UI is based on
+Gails([See online](https://kekuan.im)) inspired by Kails is a web demo build with Gin, Gorm, MySQL, Redis. The structure of this project and UI is based on
 [Kails](https://github.com/embbnux/kails) (which is An amazing Web App like Ruby on Rails with Koa2, Webpack and Postgres).
 
 The aim of this project is to show the basic architecture of the website application using Golang and for me to be learn how to be a backend engineer.
