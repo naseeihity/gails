@@ -32,3 +32,5 @@ RUN set -eux; \
 		netcat; \
         chmod 755 wait-for.sh
 
+# 需要运行的命令，这里似乎需要删除？否则docker-compose中的command里的wait for 不生效
+# NTRYPOINT ["/gails"]
