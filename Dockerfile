@@ -32,5 +32,3 @@ RUN set -eux; \
 		netcat; \
         chmod 755 wait-for.sh
 
-# 需要运行的命令
-ENTRYPOINT ["/gails", "config/app_prod.ini"]
