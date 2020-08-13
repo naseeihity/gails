@@ -35,7 +35,7 @@ func Index(c *gin.Context) {
 	// 并发获取news
 	var newsList []service.NewsItem
 	var wg sync.WaitGroup
-	ch := make(chan service.NewsItem)
+	ch := make(chan service.NewsItem, 10)
 	for _, id := range newsID {
 		wg.Add(1)
 		go hackerNews.GetItemGo(id, ch, &wg)
